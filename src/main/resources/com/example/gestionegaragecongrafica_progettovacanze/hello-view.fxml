@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.gestionegaragecongrafica_progettovacanze.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionegaragecongrafica_progettovacanze.HelloController">
+    <TextField fx:id="targaField" promptText="Inserisci la targa"/>
+    <TextField fx:id="marcaField" promptText="Inserisci la marca"/>
+    <TextField fx:id="modelloField" promptText="Inserisci il modello"/>
+    <TextField fx:id="tempoField" promptText="Inserisci il tempo"/>
+    <TextField fx:id="boxField" promptText="Inserisci il numero del box"/>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
+    <Button fx:id="parcheggiaButton" text="Parcheggia" />
+    <Button fx:id="ricercaButton" text="Ricerca veicolo" />
+    <Button fx:id="numBoxOccupatiButton" text="Box Occupati" />
+    <Button fx:id="numBoxLiberiButton" text="Box Liberi" />
+
+    <Label fx:id="risultatoLabel" />
 </VBox>
