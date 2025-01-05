@@ -75,4 +75,10 @@ public class HelloController {
         int boxLiberi = garage.numBoxLiberi();
         risultatoLabel.setText("Box liberi: " + boxLiberi);
     }
+    private void mostraMessaggio(String titolo, String messaggio, AlertType tipo) {
+        Alert alert = new Alert(tipo);
+        alert.setTitle(titolo);
+        alert.setContentText(messaggio);
+        alert.showAndWait();
+    }
 }
