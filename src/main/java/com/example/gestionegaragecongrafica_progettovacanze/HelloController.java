@@ -1,10 +1,10 @@
 package com.example.gestionegaragecongrafica_progettovacanze;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 public class HelloController {
     @FXML
     private TextField targaField;
@@ -26,7 +26,6 @@ public class HelloController {
     private Button numBoxOccupatiButton;
     @FXML
     private Button numBoxLiberiButton;
-
     private Garage garage;
     public void initialize() {
         garage = new Garage();
@@ -49,9 +48,7 @@ public class HelloController {
         try {
             double tempo = Double.parseDouble(tempoText);
             int numBox = Integer.parseInt(boxText);
-
-            Auto auto = new Auto(targa, marca, modello, garage.calcolaPrezzo(tempo), "suv");
-
+            Auto auto = new Auto(targa, marca, modello, garage.calcolaPrezzo(tempo), "SUV");
             garage.parcheggiaBoxSpecifico(numBox, auto);
             risultatoLabel.setText("Veicolo parcheggiato con successo!");
         } catch (NumberFormatException e) {
@@ -64,8 +61,12 @@ public class HelloController {
             mostraMessaggio("Errore", "Inserisci una targa da cercare!", AlertType.ERROR);
             return;
         }
-        garage.ricercaConTarga(targa);
-        risultatoLabel.setText("Veicolo trovato!");
+        Auto auto = garage.ricercaConTarga(targa);
+        if (auto != null) {
+            risultatoLabel.setText("Veicolo trovato: " + auto.getMarca() + " " + auto.getModello());
+        } else {
+            risultatoLabel.setText("Veicolo non trovato!");
+        }
     }
     private void mostraBoxOccupati() {
         int boxOccupati = garage.numBoxOccupati();

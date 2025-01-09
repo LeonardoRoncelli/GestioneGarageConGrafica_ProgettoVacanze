@@ -49,7 +49,7 @@ public class Garage {
         }
         return contaLiberi;
     }
-    public void ricercaConTarga(String targa){
+    public Auto ricercaConTarga(String targa){
         boolean isPresente=false;
         for(int i=0;i<boxes.length;i++){
             if(boxes[i]!=null&&boxes[i].getTarga().equalsIgnoreCase(targa)){
@@ -62,6 +62,7 @@ public class Garage {
         }else{
             System.out.println("Veicolo con targa inserita PRESENTE");
         }
+        return null;
     }
     public void liberaBox(int numBox){
         if(numBox>=0&&numBox<500) {
