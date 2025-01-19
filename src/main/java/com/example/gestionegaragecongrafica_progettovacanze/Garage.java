@@ -6,7 +6,7 @@ import java.math.RoundingMode;
 public class Garage {
     Veicolo []boxes=new Veicolo[500];
     public int parcheggiaVeicolo(Veicolo veicoloAgg){
-        int numBox=0;
+        int numBox=-1;
         for(int i=0;i<boxes.length;i++){
             if(boxes[i]==null){
                 boxes[i]=veicoloAgg;
@@ -16,20 +16,22 @@ public class Garage {
         }
         return numBox;
     }
-    public void visualizzaTutti(){
+    public String visualizzaTutti(){
+        String risultato="";
         int contaNull=0;
         for(int i=0;i<boxes.length;i++){
             if(boxes[i]!=null){
-                System.out.println("BOX "+i);
-                System.out.println(boxes[i].toString());
-                System.out.println(" ");
+                risultato+="BOX "+i+"\n";
+                risultato+=boxes[i].toString()+"\n";
+                risultato+="\n";
             }else {
                 contaNull++;
             }
         }
         if(contaNull==boxes.length){
-            System.out.println("NON CI SONO VEICOLI ALL'INTERNO DEL PARCHEGGIO!");
+            risultato+="NON CI SONO VEICOLI ALL'INTERNO DEL PARCHEGGIO!"+"\n";
         }
+        return risultato;
     }
     public int numBoxOccupati(){
         int contaOccupati=0;
@@ -49,7 +51,7 @@ public class Garage {
         }
         return contaLiberi;
     }
-    public Auto ricercaConTarga(String targa){
+    public String ricercaConTarga(String targa){
         boolean isPresente=false;
         for(int i=0;i<boxes.length;i++){
             if(boxes[i]!=null&&boxes[i].getTarga().equalsIgnoreCase(targa)){
@@ -58,61 +60,70 @@ public class Garage {
             }
         }
         if(!isPresente){
-            System.out.println("Veicolo con targa inserita NON PRESENTE");
+            return"Veicolo con targa inserita NON PRESENTE";
         }else{
-            System.out.println("Veicolo con targa inserita PRESENTE");
+            return "Veicolo con targa inserita PRESENTE";
         }
-        return null;
     }
-    public void liberaBox(int numBox){
+    public String liberaBox(int numBox){
         if(numBox>=0&&numBox<500) {
             if (boxes[numBox] == null) {
-                System.out.println("BOX GIÁ LIBERO!");
+                return"BOX GIÁ LIBERO!";
             }else {
                 boxes[numBox] = null;
-                System.out.println("BOX LIBERATO CON SUCCESSO");
+                return"BOX LIBERATO CON SUCCESSO";
             }
         }else{
-            System.out.println("BOX INESISTENTE!");
+            return"BOX INESISTENTE!";
         }
     }
-    public void verificaStatoBox(int numBox){
+    public String verificaStatoBox(int numBox){
         boolean isOccupato=true;
         if(numBox>=0&&numBox<500) {
             if (boxes[numBox] == null) {
                 isOccupato = false;
             }
             if(!isOccupato){
-                System.out.println("Box NON OCCUPATO");
+                return"Box NON OCCUPATO";
             }else {
-                System.out.println("Box OCCUPATO");
+                return"Box OCCUPATO";
             }
         }else {
-            System.out.println("BOX INESISTENTE!");
+            return"BOX INESISTENTE!";
         }
     }
-    public void parcheggiaBoxSpecifico (int numBox,Veicolo veicolo){
+    public String parcheggiaBoxSpecifico (int numBox,Veicolo veicolo){
+        boolean pieno=true;
+        for(int i=0;i<boxes.length;i++){
+            if(boxes[i]==null){
+                pieno=false;
+                break;
+            }
+        }
+        if(pieno){
+            return"IL GARAGE É COMPLETO! VEICOLO NON PARCHEGGIATO!";
+        }
         if(numBox>=0&&numBox<500){
             if(boxes[numBox]!=null){
-                System.out.println("BOX GIÁ OCCUPATO!");
+                return"BOX GIÁ OCCUPATO!";
             }else {
                 boxes[numBox]=veicolo;
-                System.out.println("VEICOLO PARCHEGGIATO CON SUCCESSO!");
+                return"VEICOLO PARCHEGGIATO CON SUCCESSO!";
             }
         }else {
-            System.out.println("BOX INESISTENTE!");
+            return"BOX INESISTENTE!";
         }
     }
-    public void modificaVeicolo(int numBox,Veicolo veicolo){
+    public String modificaVeicolo(int numBox,Veicolo veicolo){
         if (numBox>=0&&numBox<500){
             if(boxes[numBox]==null){
-                System.out.println("BOX LIBERO, IMPOSSIBILE MODIFICARE I DATI!");
+                return"BOX LIBERO, IMPOSSIBILE MODIFICARE I DATI!";
             }else{
                 boxes[numBox]=veicolo;
-                System.out.println("DATI MODIFICATI CON SUCCESSO!");
+                return"DATI MODIFICATI CON SUCCESSO!";
             }
         }else {
-            System.out.println("BOX INESISTENTE!");
+            return"BOX INESISTENTE!";
         }
     }
     public double calcolaPrezzo(double tempo){
@@ -124,8 +135,6 @@ public class Garage {
             arrotondamento=arrotondamento.setScale(2, RoundingMode.HALF_UP);
             prezzoArrotondato=arrotondamento.doubleValue();
             Box box=new Box(prezzoArrotondato);
-        }else {
-            System.out.println("VALORE DEL TEMPO INSERITO NON VALIDO!");
         }
         return prezzoArrotondato;
     }
